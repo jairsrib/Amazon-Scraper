@@ -1,7 +1,7 @@
 import './style.css'
 
 /**
- * Amazon Product Scraper - Frontend JavaScript com Vite
+ * Amazon Product Scraper - Frontend JavaScript with Vite
  * Gerencia a interface do usuário e comunicação com a API
  */
 
@@ -75,14 +75,14 @@ class AmazonScraper {
     }
     
     /**
-     * Gerencia o processo de busca
+     * Manages the search process
      */
     async handleSearch() {
         const keyword = this.elements.keywordInput.value.trim();
         
         // Validação do input
         if (!keyword) {
-            this.showError('Por favor, digite uma palavra-chave para buscar.');
+            this.showError('Please enter a keyword to search.');
             return;
         }
         
@@ -105,11 +105,11 @@ class AmazonScraper {
             if (response.success) {
                 this.displayResults(response);
             } else {
-                this.showError(response.error || 'Erro desconhecido');
+                this.showError(response.error || 'Unknown error');
             }
             
         } catch (error) {
-            console.error('Erro na busca:', error);
+            console.error('Search error:', error);
             this.showError('Erro de conexão. Verifique sua internet e tente novamente.');
         } finally {
             this.isLoading = false;
@@ -140,14 +140,14 @@ class AmazonScraper {
     }
     
     /**
-     * Exibe os resultados da busca
+     * Displays search results
      * @param {Object} data - Dados retornados pela API
      */
     displayResults(data) {
         const { products, keyword, totalProducts } = data;
         
         // Atualiza o título e contador
-        this.elements.resultsTitle.textContent = `Resultados para "${keyword}"`;
+        this.elements.resultsTitle.textContent = `Results for "${keyword}"`;
         this.elements.resultsCount.textContent = `${totalProducts} produto${totalProducts !== 1 ? 's' : ''} encontrado${totalProducts !== 1 ? 's' : ''}`;
         
         // Verifica se há produtos
@@ -156,7 +156,7 @@ class AmazonScraper {
             return;
         }
         
-        // Renderiza os produtos
+        // Renders products
         this.renderProducts(products);
         
         // Mostra a seção de resultados
@@ -165,7 +165,7 @@ class AmazonScraper {
     }
     
     /**
-     * Renderiza os produtos na grade
+     * Renders products na grade
      * @param {Array} products - Array de produtos
      */
     renderProducts(products) {
@@ -178,7 +178,7 @@ class AmazonScraper {
     }
     
     /**
-     * Cria um card de produto
+     * Creates a product card
      * @param {Object} product - Dados do produto
      * @returns {HTMLElement} Elemento do card
      */
@@ -201,11 +201,11 @@ class AmazonScraper {
                 <div class="product-actions">
                     <button class="view-details" onclick="scraper.showProductModal(${JSON.stringify(product).replace(/"/g, '&quot;')})">
                         <i class="fas fa-info-circle"></i>
-                        Ver Detalhes
+                        View Details
                     </button>
                     <a href="${product.productUrl}" target="_blank" class="amazon-link" onclick="scraper.trackAmazonClick('${this.escapeHtml(product.title)}')">
                         <i class="fab fa-amazon"></i>
-                        Ver na Amazon
+                        View on Amazon
                     </a>
                 </div>
             </div>
@@ -245,13 +245,13 @@ class AmazonScraper {
     }
     
     /**
-     * Mostra o modal com detalhes do produto
+     * Mostra o modal com Product Details
      * @param {Object} product - Dados do produto
      */
     showProductModal(product) {
         const stars = this.generateStars(product.rating);
         
-        this.elements.modalTitle.textContent = 'Detalhes do Produto';
+        this.elements.modalTitle.textContent = 'Product Details';
         this.elements.modalContent.innerHTML = `
             <img src="${product.imageUrl}" alt="${product.title}" class="modal-product-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjVGNUY1Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZW0gbsOjbyBkaXNwb27DrXZlbDwvdGV4dD4KPC9zdmc+';">
             <h3 class="modal-product-title">${this.escapeHtml(product.title)}</h3>
@@ -262,7 +262,7 @@ class AmazonScraper {
             <p class="modal-product-reviews">${product.reviews}</p>
             <a href="${product.productUrl}" target="_blank" class="modal-product-link">
                 <i class="fas fa-external-link-alt"></i>
-                Ver na Amazon
+                View on Amazon
             </a>
         `;
         
@@ -297,7 +297,7 @@ class AmazonScraper {
     
     /**
      * Mostra a seção de erro
-     * @param {string} message - Mensagem de erro
+     * @param {string} message - Error message
      */
     showError(message) {
         this.hideAllSections();
@@ -328,7 +328,7 @@ class AmazonScraper {
      */
     disableSearchButton() {
         this.elements.searchBtn.disabled = true;
-        this.elements.searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Buscando...';
+        this.elements.searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
     }
     
     /**
@@ -336,13 +336,13 @@ class AmazonScraper {
      */
     enableSearchButton() {
         this.elements.searchBtn.disabled = false;
-        this.elements.searchBtn.innerHTML = '<i class="fas fa-search"></i> Buscar Produtos';
+        this.elements.searchBtn.innerHTML = '<i class="fas fa-search"></i> Search Products';
     }
     
     /**
-     * Escapa HTML para evitar XSS
-     * @param {string} text - Texto para escapar
-     * @returns {string} Texto escapado
+     * Escapes HTML to prevent XSS
+     * @param {string} text - Text to escape
+     * @returns {string} Escaped text
      */
     escapeHtml(text) {
         const div = document.createElement('div');
@@ -355,18 +355,19 @@ class AmazonScraper {
 document.addEventListener('DOMContentLoaded', () => {
     window.scraper = new AmazonScraper();
     
-    // Foca no input de busca
+    // Focuses on search input
     setTimeout(() => {
         document.getElementById('keywordInput').focus();
     }, 100);
 });
 
-// Adiciona funcionalidade de loading global
+// Adds global loading functionality
 window.addEventListener('beforeunload', () => {
     document.body.style.cursor = 'wait';
 });
 
-// Remove loading global
+// Removes global loading
 window.addEventListener('load', () => {
     document.body.style.cursor = 'default';
 }); 
+

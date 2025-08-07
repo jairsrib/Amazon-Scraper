@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,17 +28,17 @@
                     <input 
                         type="text" 
                         id="keywordInput" 
-                        placeholder="Digite o produto que deseja buscar..."
+                        placeholder="Type the product you want to search..."
                         class="search-input"
                     >
                     <button id="searchBtn" class="search-btn">
                         <i class="fas fa-search"></i>
-                        Buscar Produtos
+                        Search Products
                     </button>
                 </div>
                 <div class="search-info">
                     <i class="fas fa-info-circle"></i>
-                    <span>Digite uma palavra-chave para buscar produtos na Amazon</span>
+                    <span>Digite uma palavra-chave para Search Products na Amazon</span>
                 </div>
             </div>
         </section>
@@ -47,17 +47,17 @@
         <section id="loadingSection" class="loading-section hidden">
             <div class="loading-container">
                 <div class="spinner"></div>
-                <p>Buscando produtos na Amazon...</p>
-                <small>Isso pode levar alguns segundos</small>
+                <p>Searching products on Amazon...</p>
+                <small>This may take a few seconds</small>
             </div>
         </section>
 
         <!-- Results Section -->
         <section id="resultsSection" class="results-section hidden">
             <div class="results-header">
-                <h2 id="resultsTitle">Resultados da Busca</h2>
+                <h2 id="resultsTitle">Search Results</h2>
                 <div class="results-stats">
-                    <span id="resultsCount">0 produtos encontrados</span>
+                    <span id="resultsCount">0 products found</span>
                 </div>
             </div>
             
@@ -70,11 +70,11 @@
         <section id="errorSection" class="error-section hidden">
             <div class="error-container">
                 <i class="fas fa-exclamation-triangle"></i>
-                <h3>Erro na Busca</h3>
-                <p id="errorMessage">Ocorreu um erro durante a busca</p>
+                <h3>Search Error</h3>
+                <p id="errorMessage">An error occurred during the search</p>
                 <button id="retryBtn" class="retry-btn">
                     <i class="fas fa-redo"></i>
-                    Tentar Novamente
+                    Try Again
                 </button>
             </div>
         </section>
@@ -83,7 +83,7 @@
         <section id="emptySection" class="empty-section hidden">
             <div class="empty-container">
                 <i class="fas fa-search"></i>
-                <h3>Nenhum produto encontrado</h3>
+                <h3>No products found</h3>
                 <p>Tente usar palavras-chave diferentes ou verifique sua conexão com a internet</p>
             </div>
         </section>
@@ -93,7 +93,7 @@
     <div id="productModal" class="modal hidden">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modalTitle">Detalhes do Produto</h3>
+                <h3 id="modalTitle">Product Details</h3>
                 <button id="closeModal" class="close-btn">
                     <i class="fas fa-times"></i>
                 </button>
