@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Product Scraper - Bun + Vite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-search"></i>
+                    <h1>Amazon Scraper</h1>
+                    <span class="tech-badge">Bun + Vite</span>
+                </div>
+                <p class="subtitle">Extraia informações de produtos da Amazon usando Bun e Vite</p>
+            </div>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-box">
+                    <input 
+                        type="text" 
+                        id="keywordInput" 
+                        placeholder="Digite o produto que deseja buscar..."
+                        class="search-input"
+                    >
+                    <button id="searchBtn" class="search-btn">
+                        <i class="fas fa-search"></i>
+                        Buscar Produtos
+                    </button>
+                </div>
+                <div class="search-info">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Digite uma palavra-chave para buscar produtos na Amazon</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading Section -->
+        <section id="loadingSection" class="loading-section hidden">
+            <div class="loading-container">
+                <div class="spinner"></div>
+                <p>Buscando produtos na Amazon...</p>
+                <small>Isso pode levar alguns segundos</small>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results-section hidden">
+            <div class="results-header">
+                <h2 id="resultsTitle">Resultados da Busca</h2>
+                <div class="results-stats">
+                    <span id="resultsCount">0 produtos encontrados</span>
+                </div>
+            </div>
+            
+            <div id="productsGrid" class="products-grid">
+                <!-- Products will be inserted here -->
+            </div>
+        </section>
+
+        <!-- Error Section -->
+        <section id="errorSection" class="error-section hidden">
+            <div class="error-container">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Erro na Busca</h3>
+                <p id="errorMessage">Ocorreu um erro durante a busca</p>
+                <button id="retryBtn" class="retry-btn">
+                    <i class="fas fa-redo"></i>
+                    Tentar Novamente
+                </button>
+            </div>
+        </section>
+
+        <!-- Empty Results Section -->
+        <section id="emptySection" class="empty-section hidden">
+            <div class="empty-container">
+                <i class="fas fa-search"></i>
+                <h3>Nenhum produto encontrado</h3>
+                <p>Tente usar palavras-chave diferentes ou verifique sua conexão com a internet</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Detalhes do Produto</h3>
+                <button id="closeModal" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="modalContent">
+                    <!-- Modal content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html> 
