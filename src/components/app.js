@@ -110,7 +110,7 @@ class AmazonScraper {
             
         } catch (error) {
             console.error('Search error:', error);
-            this.showError('Erro de conexão. Verifique sua internet e tente novamente.');
+            this.showError('Connection error. Check your internet and try again.');
         } finally {
             this.isLoading = false;
             this.enableSearchButton();
@@ -148,7 +148,7 @@ class AmazonScraper {
         
         // Atualiza o título e contador
         this.elements.resultsTitle.textContent = `Results for "${keyword}"`;
-        this.elements.resultsCount.textContent = `${totalProducts} produto${totalProducts !== 1 ? 's' : ''} encontrado${totalProducts !== 1 ? 's' : ''}`;
+        this.elements.resultsCount.textContent = `${totalProducts} product${totalProducts !== 1 ? 's' : ''} found`;
         
         // Verifica se há produtos
         if (!products || products.length === 0) {
@@ -283,7 +283,7 @@ class AmazonScraper {
      * @param {string} productTitle - Título do produto clicado
      */
     trackAmazonClick(productTitle) {
-        console.log(`🛒 Usuário clicou no produto: ${productTitle}`);
+        console.log(`🛒 User clicked on product: ${productTitle}`);
         // Aqui você pode adicionar analytics ou tracking se necessário
     }
     

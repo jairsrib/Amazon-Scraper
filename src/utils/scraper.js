@@ -22,7 +22,7 @@ async function scrapeAmazonProducts(keyword) {
             ...config.amazon.headers
         };
 
-        console.log(`🔍 Fazendo scraping para: ${keyword}`);
+        console.log(`🔍 Scraping for: ${keyword}`);
         
         // Fazendo a requisição HTTP
         const response = await axios.get(searchUrl, { 
@@ -44,26 +44,26 @@ async function scrapeAmazonProducts(keyword) {
             try {
                 // Extraindo o título do produto
                 const titleElement = card.querySelector('h2 a span') || card.querySelector('.a-text-normal');
-                const title = titleElement ? titleElement.textContent.trim() : 'Título não disponível';
+                const title = titleElement ? titleElement.textContent.trim() : 'Title not available';
                 
                 // Extraindo a avaliação (estrelas)
                 const ratingElement = card.querySelector('.a-icon-alt');
-                let rating = 'Sem avaliação';
+                let rating = 'No rating';
                 if (ratingElement) {
                     const ratingText = ratingElement.textContent.trim();
                     const ratingMatch = ratingText.match(/(\d+(?:\.\d+)?)/);
                     if (ratingMatch) {
-                        rating = `${ratingMatch[1]} de 5 estrelas`;
+                        rating = `${ratingMatch[1]} out of 5 stars`;
                     }
                 }
                 
                 // Extraindo o número de avaliações
                 const reviewsElement = card.querySelector('a[href*="customerReviews"] span');
-                const reviews = reviewsElement ? reviewsElement.textContent.trim() : '0 avaliações';
+                const reviews = reviewsElement ? reviewsElement.textContent.trim() : '0 reviews';
                 
                 // Extraindo a URL da imagem
                 const imageElement = card.querySelector('img.s-image');
-                const imageUrl = imageElement ? imageElement.src : 'Imagem não disponível';
+                const imageUrl = imageElement ? imageElement.src : 'Image not available';
                 
                 // Extraindo o link do produto
                 const linkElement = card.querySelector('h2 a, .a-link-normal, a[href*="/dp/"], a[href*="/gp/product/"]');
@@ -84,8 +84,8 @@ async function scrapeAmazonProducts(keyword) {
                     productUrl = productUrl.split('?')[0];
                 }
                 
-                // Adicionando o produto ao array se tiver pelo menos um título
-                if (title && title !== 'Título não disponível') {
+                // Adding the product to the array if it has at least a title
+                if (title && title !== 'Title not available') {
                     products.push({
                         id: index + 1,
                         title,
@@ -96,16 +96,16 @@ async function scrapeAmazonProducts(keyword) {
                     });
                 }
             } catch (error) {
-                console.log(`⚠️ Erro ao processar produto ${index + 1}:`, error.message);
+                console.log(`⚠️ Error processing product ${index + 1}:`, error.message);
             }
         });
         
-        console.log(`✅ Encontrados ${products.length} produtos`);
+        console.log(`✅ Found ${products.length} products`);
         return products.slice(0, config.scraping.maxProducts);
         
     } catch (error) {
-        console.error('❌ Erro durante o scraping:', error.message);
-        throw new Error(`Erro ao fazer scraping: ${error.message}`);
+        console.error('❌ Error during scraping:', error.message);
+        throw new Error(`Error during scraping: ${error.message}`);
     }
 }
 
@@ -131,10 +131,10 @@ function validateKeyword(keyword) {
 function formatProduct(product) {
     return {
         ...product,
-        title: product.title || 'Título não disponível',
-        rating: product.rating || 'Sem avaliação',
-        reviews: product.reviews || '0 avaliações',
-        imageUrl: product.imageUrl || 'Imagem não disponível',
+        title: product.title || 'Title not available',
+        rating: product.rating || 'No rating',
+        reviews: product.reviews || '0 reviews',
+        imageUrl: product.imageUrl || 'Image not available',
         productUrl: product.productUrl || '#'
     };
 }

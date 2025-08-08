@@ -21,11 +21,11 @@ app.get('/api/scrape', async (req, res) => {
         if (!validateKeyword(keyword)) {
             return res.status(400).json({
                 success: false,
-                error: 'Parâmetro "keyword" é obrigatório e deve ter entre 2 e 100 caracteres'
+                error: 'Parameter "keyword" is required and must be between 2 and 100 characters'
             });
         }
         
-        console.log(`🚀 Iniciando scraping para: "${keyword}"`);
+        console.log(`🚀 Starting scraping for: "${keyword}"`);
         
         // Fazendo o scraping
         const products = await scrapeAmazonProducts(keyword.trim());
@@ -39,10 +39,10 @@ app.get('/api/scrape', async (req, res) => {
         });
         
     } catch (error) {
-        console.error('❌ Erro no endpoint /api/scrape:', error);
+        console.error('❌ Error in /api/scrape endpoint:', error);
         res.status(500).json({
             success: false,
-            error: error.message || 'Erro interno do servidor'
+            error: error.message || 'Internal server error'
         });
     }
 });
@@ -54,7 +54,7 @@ app.get('/api/scrape', async (req, res) => {
 app.get('/api/health', (req, res) => {
     res.json({
         success: true,
-        message: 'Servidor Amazon Scraper funcionando corretamente',
+        message: 'Amazon Scraper server running correctly',
         version: '1.0.0',
         timestamp: new Date().toISOString(),
         uptime: process.uptime()
@@ -69,11 +69,11 @@ app.get('/api/info', (req, res) => {
     res.json({
         name: 'Amazon Product Scraper API',
         version: '1.0.0',
-        description: 'API para extração de produtos da Amazon',
+        description: 'API for extracting Amazon products',
         endpoints: {
-            '/api/scrape': 'GET - Extrai produtos por palavra-chave',
-            '/api/health': 'GET - Status do servidor',
-            '/api/info': 'GET - Informações da API'
+            '/api/scrape': 'GET - Extract products by keyword',
+            '/api/health': 'GET - Server status',
+            '/api/info': 'GET - API information'
         },
         config: {
             maxProducts: config.scraping.maxProducts,
@@ -83,20 +83,20 @@ app.get('/api/info', (req, res) => {
     });
 });
 
-// Middleware de tratamento de erros
+// Error handling middleware
 app.use((err, req, res, next) => {
-    console.error('❌ Erro não tratado:', err);
+    console.error('❌ Unhandled error:', err);
     res.status(500).json({
         success: false,
-        error: 'Erro interno do servidor'
+        error: 'Internal server error'
     });
 });
 
-// Middleware para rotas não encontradas
+// Middleware for routes not found
 app.use('*', (req, res) => {
     res.status(404).json({
         success: false,
-        error: 'Endpoint não encontrado',
+        error: 'Endpoint not found',
         availableEndpoints: [
             'GET /api/scrape?keyword=sua-palavra-chave',
             'GET /api/health',
