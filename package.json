@@ -1,21 +1,26 @@
 {
   "name": "amazon-scraper-bun",
   "version": "1.0.0",
-  "description": "Amazon Product Scraper using Bun and Vite",
+  "description": "🚀 Amazon Product Scraper usando Bun e Vite - Extraia informações de produtos da Amazon de forma rápida e eficiente",
   "main": "server.js",
   "scripts": {
     "start": "bun run server.js",
     "dev": "bun --watch server.js",
+    "dev:frontend": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "test": "bun run test-bun.js"
+    "preview": "vite preview"
   },
   "keywords": [
     "amazon",
     "scraper",
     "bun",
     "vite",
-    "web-scraping"
+    "web-scraping",
+    "express",
+    "jsdom",
+    "axios",
+    "product-search",
+    "e-commerce"
   ],
   "author": "Amazon Scraper Developer",
   "license": "MIT",
@@ -29,6 +34,7 @@
     "vite": "^5.0.0"
   },
   "engines": {
-    "bun": ">=1.0.0"
+    "bun": ">=1.0.0",
+    "node": ">=18.0.0"
   }
 } 

@@ -1,26 +1,54 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-  // Configuração do servidor de desenvolvimento
+  // Configurações do servidor de desenvolvimento
   server: {
     port: 5173,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true
-      }
-    }
+    host: 'localhost',
+    open: true,
+    cors: true
   },
-  
-  // Configuração de build
+
+  // Configurações de build
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    sourcemap: true
+    sourcemap: true,
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['axios']
+        }
+      }
+    }
   },
-  
-  // Configuração de preview
+
+  // Configurações de preview
   preview: {
-    port: 4173
+    port: 4173,
+    host: 'localhost',
+    open: true
+  },
+
+  // Configurações de resolução
+  resolve: {
+    alias: {
+      '@': '/src',
+      '@components': '/src/components',
+      '@utils': '/src/utils',
+      '@styles': '/src/styles',
+      '@api': '/src/api'
+    }
+  },
+
+  // Configurações de CSS
+  css: {
+    devSourcemap: true
+  },
+
+  // Configurações de otimização
+  optimizeDeps: {
+    include: ['axios']
   }
-}) 
+}); 
